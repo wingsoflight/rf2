@@ -19,20 +19,41 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Result> resultList;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter recyclerViewAdapter;
-    private RecyclerView.LayoutManager recyclerViewLayoutManager;
+    private LinearLayoutManager recyclerViewLayoutManager;
     private int limit = 10, offset = 0;
+    int visibleItemCount, totalItemCount, pastVisibleItems;
+    boolean loading = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         resultList = new ArrayList<>();
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerViewLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(recyclerViewLayoutManager);
         recyclerViewAdapter = new Adapter(resultList, getApplicationContext());
         recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(dy > 0){
+                    visibleItemCount = recyclerViewLayoutManager.getChildCount();
+                    totalItemCount = recyclerViewLayoutManager.getItemCount();
+                    pastVisibleItems = recyclerViewLayoutManager.findFirstVisibleItemPosition();
+                    if(loading){
+                        if(visibleItemCount + pastVisibleItems >= totalItemCount){
+                            loading = false;
+                            offset += limit;
+                            getData("popular", limit, offset);
+                            loading = true;
+                        }
+                    }
+                }
+            }
+        });
         if(checkInternet(getApplicationContext())){
             getData("popular", limit, offset);
         }
@@ -42,14 +63,19 @@ public class MainActivity extends AppCompatActivity {
         return ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null;
     }
 
-    void getData(String orderName, int limit, int offset){
+    void getData(String orderName, final int limit, int offset){
         ApiService apiService = RetrofitClient.getApiService();
         Call<Response> responseCall = apiService.getData(orderName, limit, offset);
         responseCall.enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
                 resultList.addAll(response.body().getResult());
-                recyclerView.setAdapter(recyclerViewAdapter);
+                if(resultList.size() <= limit) {
+                    recyclerView.setAdapter(recyclerViewAdapter);
+                }
+                else{
+                    recyclerViewAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override
