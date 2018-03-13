@@ -1,9 +1,14 @@
 package com.example.hp.recyclerviewgrid;
 
+import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.os.Parcelable.Creator;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Result {
+public class Result implements Serializable, Parcelable
+{
 
     @SerializedName("id")
     @Expose
@@ -35,6 +40,39 @@ public class Result {
     @SerializedName("user")
     @Expose
     private User user;
+    public final static Parcelable.Creator<Result> CREATOR = new Creator<Result>() {
+
+
+        @SuppressWarnings({
+                "unchecked"
+        })
+        public Result createFromParcel(Parcel in) {
+            return new Result(in);
+        }
+
+        public Result[] newArray(int size) {
+            return (new Result[size]);
+        }
+
+    }
+            ;
+    private final static long serialVersionUID = 5503109302306127486L;
+
+    protected Result(Parcel in) {
+        this.id = ((int) in.readValue((int.class.getClassLoader())));
+        this.url = ((String) in.readValue((String.class.getClassLoader())));
+        this.title = ((String) in.readValue((String.class.getClassLoader())));
+        this.image = ((Image) in.readValue((Image.class.getClassLoader())));
+        this.description = ((String) in.readValue((String.class.getClassLoader())));
+        this.view = ((int) in.readValue((int.class.getClassLoader())));
+        this.status = ((String) in.readValue((String.class.getClassLoader())));
+        this.likes = ((int) in.readValue((int.class.getClassLoader())));
+        this.dislikes = ((int) in.readValue((int.class.getClassLoader())));
+        this.user = ((User) in.readValue((User.class.getClassLoader())));
+    }
+
+    public Result() {
+    }
 
     public int getId() {
         return id;
@@ -114,6 +152,23 @@ public class Result {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(id);
+        dest.writeValue(url);
+        dest.writeValue(title);
+        dest.writeValue(image);
+        dest.writeValue(description);
+        dest.writeValue(view);
+        dest.writeValue(status);
+        dest.writeValue(likes);
+        dest.writeValue(dislikes);
+        dest.writeValue(user);
+    }
+
+    public int describeContents() {
+        return 0;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.hp.recyclerviewgrid;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,7 +49,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("AAA", String.valueOf(vh.getAdapterPosition()));
+                Intent intent = new Intent(context, BookDetailsActivity.class);
+
             }
         });
         return vh;
