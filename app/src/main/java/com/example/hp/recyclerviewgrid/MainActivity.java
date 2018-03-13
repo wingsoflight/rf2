@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -48,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
                             loading = false;
                             offset += limit;
                             getData("popular", limit, offset);
-                            loading = true;
                         }
                     }
                 }
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     void getData(String orderName, final int limit, int offset){
         ApiService apiService = RetrofitClient.getApiService();
         Call<Response> responseCall = apiService.getData(orderName, limit, offset);
+        Log.d("BBB", String.valueOf(limit)+ " " + String.valueOf(offset));
         responseCall.enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     recyclerViewAdapter.notifyDataSetChanged();
                 }
+                loading = true;
             }
 
             @Override

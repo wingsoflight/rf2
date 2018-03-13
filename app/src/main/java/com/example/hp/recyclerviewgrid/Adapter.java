@@ -2,6 +2,7 @@ package com.example.hp.recyclerviewgrid;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
     private ArrayList<Result> resultArrayList;
     private Context context;
+
+
     static class MyViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView;
         TextView titleTextView, ratingTextView;
@@ -30,6 +33,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
             titleTextView = view.findViewById(R.id.itemTextViewTitle);
             ratingTextView = view.findViewById(R.id.itemTextViewRating);
         }
+
     }
 
     Adapter(ArrayList<Result> _results, Context _context){
@@ -40,7 +44,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
     @Override
     public Adapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view, parent, false);
-        return new MyViewHolder(v);
+        final MyViewHolder vh = new MyViewHolder(v);
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("AAA", String.valueOf(vh.getAdapterPosition()));
+            }
+        });
+        return vh;
     }
 
     @Override
