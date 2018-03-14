@@ -1,6 +1,5 @@
-package com.example.hp.recyclerviewgrid;
+package com.example.hp.recyclerviewgrid.ApiConnectivity;
 
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

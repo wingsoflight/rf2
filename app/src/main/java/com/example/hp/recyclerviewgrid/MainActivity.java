@@ -8,10 +8,14 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.example.hp.recyclerviewgrid.Adapters.Adapter;
+import com.example.hp.recyclerviewgrid.ApiConnectivity.ApiService;
+import com.example.hp.recyclerviewgrid.ApiConnectivity.RetrofitClient;
+import com.example.hp.recyclerviewgrid.Entities.Response;
+import com.example.hp.recyclerviewgrid.Entities.Result;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;

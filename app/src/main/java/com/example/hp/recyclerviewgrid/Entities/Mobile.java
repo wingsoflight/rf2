@@ -1,13 +1,13 @@
-package com.example.hp.recyclerviewgrid;
+package com.example.hp.recyclerviewgrid.Entities;
 
 import java.io.Serializable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Desktop implements Serializable, Parcelable
+public class Mobile implements Serializable, Parcelable
 {
 
     @SerializedName("image")
@@ -16,30 +16,30 @@ public class Desktop implements Serializable, Parcelable
     @SerializedName("svg")
     @Expose
     private String svg;
-    public final static Parcelable.Creator<Desktop> CREATOR = new Creator<Desktop>() {
+    public final static Parcelable.Creator<Mobile> CREATOR = new Creator<Mobile>() {
 
 
         @SuppressWarnings({
                 "unchecked"
         })
-        public Desktop createFromParcel(Parcel in) {
-            return new Desktop(in);
+        public Mobile createFromParcel(Parcel in) {
+            return new Mobile(in);
         }
 
-        public Desktop[] newArray(int size) {
-            return (new Desktop[size]);
+        public Mobile[] newArray(int size) {
+            return (new Mobile[size]);
         }
 
     }
             ;
-    private final static long serialVersionUID = 8525088108679816274L;
+    private final static long serialVersionUID = -8770092489321719777L;
 
-    protected Desktop(Parcel in) {
+    protected Mobile(Parcel in) {
         this.image = ((String) in.readValue((String.class.getClassLoader())));
         this.svg = ((String) in.readValue((String.class.getClassLoader())));
     }
 
-    public Desktop() {
+    public Mobile() {
     }
 
     public String getImage() {

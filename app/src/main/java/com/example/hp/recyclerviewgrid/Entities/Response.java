@@ -1,10 +1,10 @@
-package com.example.hp.recyclerviewgrid;
+package com.example.hp.recyclerviewgrid.Entities;
 
 import java.io.Serializable;
 import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -37,7 +37,7 @@ public class Response implements Serializable, Parcelable
 
     protected Response(Parcel in) {
         this.countPages = ((int) in.readValue((int.class.getClassLoader())));
-        in.readList(this.result, (com.example.hp.recyclerviewgrid.Result.class.getClassLoader()));
+        in.readList(this.result, (Result.class.getClassLoader()));
     }
 
     public Response() {

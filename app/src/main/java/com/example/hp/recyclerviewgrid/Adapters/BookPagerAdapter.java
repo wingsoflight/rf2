@@ -1,9 +1,13 @@
-package com.example.hp.recyclerviewgrid;
+package com.example.hp.recyclerviewgrid.Adapters;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.example.hp.recyclerviewgrid.Activities.BookDetailsActivity;
+import com.example.hp.recyclerviewgrid.Fragments.BookDetailsFragment;
+import com.example.hp.recyclerviewgrid.Entities.Result;
 
 /**
  * Created by user on 3/13/18.

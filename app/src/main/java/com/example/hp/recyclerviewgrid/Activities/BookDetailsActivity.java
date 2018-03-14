@@ -1,17 +1,20 @@
-package com.example.hp.recyclerviewgrid;
+package com.example.hp.recyclerviewgrid.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
+
+import com.example.hp.recyclerviewgrid.Adapters.BookPagerAdapter;
+import com.example.hp.recyclerviewgrid.Entities.Result;
+import com.example.hp.recyclerviewgrid.R;
 
 /**
  * Created by user on 3/13/18.
  */
 
 public class BookDetailsActivity extends FragmentActivity {
-    final static String RESULT_OBJECT = "Result object";
+    public final static String RESULT_OBJECT = "Result object";
     ViewPager mViewPager;
     BookPagerAdapter mBookPagerAdapter;
     Intent intent;

@@ -1,4 +1,6 @@
-package com.example.hp.recyclerviewgrid;
+package com.example.hp.recyclerviewgrid.ApiConnectivity;
+
+import com.example.hp.recyclerviewgrid.Entities.Response;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
