@@ -2,6 +2,8 @@ package com.example.hp.recyclerviewgrid;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,8 +51,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Result result = resultArrayList.get(vh.getAdapterPosition());
                 Intent intent = new Intent(context, BookDetailsActivity.class);
-
+                intent.putExtra(BookDetailsActivity.RESULT_OBJECT, (Parcelable) result);
+                context.startActivity(intent);
             }
         });
         return vh;

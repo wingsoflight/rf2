@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingLeft="?attr/listPreferredItemPaddingLeft"
-    android:paddingRight="?attr/listPreferredItemPaddingRight">
+    android:paddingLeft="3dp"
+    android:paddingRight="3dp">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -15,36 +15,36 @@
             android:layout_weight="7"
             android:orientation="vertical">
             <TextView
-                android:layout_margin="?attr/titleMargin"
+                android:id="@+id/bookTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="This is a title textview"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large">
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:text="This is a title textview">
             </TextView>
             <TextView
-                android:layout_margin="?attr/titleMargin"
+                android:id="@+id/bookAuthorTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="This is a author name textView"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"/>
+                android:text="This is a author name textView"/>
             <TextView
+                android:id="@+id/bookGenresTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="?attr/titleMargins"
                 android:text="this is a genre textView"/>
 
         </LinearLayout>
         <ImageView
+            android:id="@+id/bookImageView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:src="@drawable/placeholder"/>
     </LinearLayout>
     <TextView
+        android:id="@+id/bookDescriptionTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceListItemSmall"
-        android:layout_margin="?attr/titleMargins"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."/>
 
 </LinearLayout>
