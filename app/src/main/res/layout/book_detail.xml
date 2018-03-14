@@ -2,41 +2,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="5dp">
+    <TextView
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:id="@+id/bookTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="This is a title textview">
+    </TextView>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/bookTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:text="This is a title textview">
-            </TextView>
-            <TextView
-                android:id="@+id/bookAuthorTextView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="This is a author name textView"/>
-            <TextView
-                android:id="@+id/bookGenresTextView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="this is a genre textView"/>
-
-        </LinearLayout>
         <ImageView
             android:id="@+id/bookImageView"
             android:layout_width="0dp"
+            android:layout_height="210dp"
+            android:layout_weight="4"
+            android:src="@drawable/book_image_placeholder_vertical"
+            android:scaleType="fitXY" />
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:src="@drawable/placeholder"/>
+            android:layout_weight="6"
+            android:orientation="vertical">
+            <TextView
+                android:padding="5dp"
+                android:id="@+id/bookAuthorTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="This is a author name textView"/>
+            <TextView
+                android:padding="5dp"
+                android:id="@+id/bookGenresTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="this is a genre textView"/>
+
+        </LinearLayout>
     </LinearLayout>
     <TextView
         android:id="@+id/bookDescriptionTextView"

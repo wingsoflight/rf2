@@ -65,7 +65,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder>{
         holder.titleTextView.setText(result.getTitle());
         String s = String.valueOf(result.getLikes()) + " +/- " + String.valueOf(result.getDislikes());
         holder.ratingTextView.setText(s);
-        Picasso.with(context).load(result.getImage().getMobile().getImage()).placeholder(R.drawable.placeholder).error(R.drawable.placeholder).into(holder.imageView);
+        Picasso.with(context).load(result.getImage().getMobile().getImage()).placeholder(R.drawable.book_image_placeholder_horizontal).error(R.drawable.book_image_placeholder_horizontal).into(holder.imageView);
     }
 
     @Override
