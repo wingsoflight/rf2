@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter recyclerViewAdapter;
     private LinearLayoutManager recyclerViewLayoutManager;
-    private int limit = 10, offset = 0;
+    private int limit = 10, offset = 0, threshold = 0;
     int visibleItemCount, totalItemCount, pastVisibleItems;
     boolean loading = true;
 
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        System.out.println(getCacheDir().toString());
         resultList = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     totalItemCount = recyclerViewLayoutManager.getItemCount();
                     pastVisibleItems = recyclerViewLayoutManager.findFirstVisibleItemPosition();
                     if(loading){
-                        if(visibleItemCount + pastVisibleItems >= totalItemCount){
+                        if(visibleItemCount + pastVisibleItems >= totalItemCount - threshold){
                             loading = false;
                             offset += limit;
                             getData("popular", limit, offset);
@@ -68,9 +69,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void getData(String orderName, final int limit, int offset){
-        ApiService apiService = RetrofitClient.getApiService();
+        ApiService apiService = RetrofitClient.getApiService(this);
         Call<Response> responseCall = apiService.getData(orderName, limit, offset);
-        Log.d("BBB", String.valueOf(limit)+ " " + String.valueOf(offset));
         responseCall.enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
