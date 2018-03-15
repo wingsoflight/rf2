@@ -16,6 +16,7 @@ import com.example.hp.recyclerviewgrid.Entities.Result;
 
 public class BookPagerAdapter extends FragmentPagerAdapter {
     Book book;
+    Fragment bookDetailsFragment;
     public BookPagerAdapter(FragmentManager fm, Book book) {
         super(fm);
         this.book = book;
@@ -24,11 +25,11 @@ public class BookPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if(position == 0) {
-            Fragment fragment = new BookDetailsFragment();
+            bookDetailsFragment = new BookDetailsFragment();
             Bundle args = new Bundle();
             args.putParcelable(Book.BOOK_OBJECT, book);
-            fragment.setArguments(args);
-            return fragment;
+            bookDetailsFragment.setArguments(args);
+            return bookDetailsFragment;
         }
         return null;
     }

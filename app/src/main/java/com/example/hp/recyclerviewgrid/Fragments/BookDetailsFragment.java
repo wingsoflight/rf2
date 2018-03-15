@@ -20,7 +20,7 @@ import com.squareup.picasso.Picasso;
  */
 
 public class BookDetailsFragment extends Fragment {
-    TextView titleTextView, descriptionTextView, bookLikesCountTextView, bookDislikesCountTextView, bookViewsCountTextView;
+    TextView titleTextView, descriptionTextView, bookLikesCountTextView, bookDislikesCountTextView, bookViewsCountTextView, bookCountryTextView;
     ImageView bookDetailsImageView;
     @Nullable
     @Override
@@ -34,11 +34,13 @@ public class BookDetailsFragment extends Fragment {
         bookLikesCountTextView = rootView.findViewById(R.id.bookLikesCountTextView);
         bookDislikesCountTextView = rootView.findViewById(R.id.bookDislikesCountTextView);
         bookViewsCountTextView = rootView.findViewById(R.id.bookViewCountTextView);
+        bookCountryTextView = rootView.findViewById(R.id.bookCountryTextView);
         titleTextView.setText(book.getTitle());
         descriptionTextView.setText(book.getDescription());
         bookLikesCountTextView.setText(""+book.getLikes());
         bookDislikesCountTextView.setText(""+book.getDislikes());
         bookViewsCountTextView.setText(""+book.getView_count());
+        bookCountryTextView.setText("Страна: "+book.getCountry());
         Picasso.with(getContext()).load(book.getImageURL()).placeholder(R.drawable.book_image_placeholder_vertical).error(R.drawable.book_image_placeholder_vertical).into(bookDetailsImageView);
         return rootView;
     }
