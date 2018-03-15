@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 
 import com.example.hp.recyclerviewgrid.Adapters.BookPagerAdapter;
+import com.example.hp.recyclerviewgrid.Entities.Book;
 import com.example.hp.recyclerviewgrid.Entities.Result;
 import com.example.hp.recyclerviewgrid.R;
 
@@ -26,7 +27,8 @@ public class BookDetailsActivity extends FragmentActivity {
         mViewPager = findViewById(R.id.aboutBookPager);
         intent = getIntent();
         result = intent.getParcelableExtra(RESULT_OBJECT);
-        mBookPagerAdapter = new BookPagerAdapter(getSupportFragmentManager(), result);
+        Book book = new Book(result.getTitle(), result.getDescription(), result.getLikes(), result.getDislikes(), result.getView(), result.getImage().getDesktop().getImage());
+        mBookPagerAdapter = new BookPagerAdapter(getSupportFragmentManager(), book);
         mViewPager.setAdapter(mBookPagerAdapter);
     }
 }

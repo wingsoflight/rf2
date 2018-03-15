@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.hp.recyclerviewgrid.Activities.BookDetailsActivity;
+import com.example.hp.recyclerviewgrid.Entities.Book;
 import com.example.hp.recyclerviewgrid.Fragments.BookDetailsFragment;
 import com.example.hp.recyclerviewgrid.Entities.Result;
 
@@ -14,10 +15,10 @@ import com.example.hp.recyclerviewgrid.Entities.Result;
  */
 
 public class BookPagerAdapter extends FragmentPagerAdapter {
-    Result result;
-    public BookPagerAdapter(FragmentManager fm, Result result) {
+    Book book;
+    public BookPagerAdapter(FragmentManager fm, Book book) {
         super(fm);
-        this.result = result;
+        this.book = book;
     }
 
     @Override
@@ -25,7 +26,7 @@ public class BookPagerAdapter extends FragmentPagerAdapter {
         if(position == 0) {
             Fragment fragment = new BookDetailsFragment();
             Bundle args = new Bundle();
-            args.putParcelable(BookDetailsActivity.RESULT_OBJECT, result);
+            args.putParcelable(Book.BOOK_OBJECT, book);
             fragment.setArguments(args);
             return fragment;
         }
