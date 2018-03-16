@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -28,17 +31,29 @@
         <LinearLayout
             android:paddingLeft="5dp"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="6"
             android:orientation="vertical">
             <TextView
-                android:paddingVertical="5dp"
+                android:paddingVertical="3dp"
                 android:id="@+id/bookAuthorTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Автор: "/>
             <TextView
-                android:paddingVertical="5dp"
+                android:paddingVertical="3dp"
+                android:id="@+id/bookChaptersCountTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Всего глав: "/>
+            <TextView
+                android:paddingVertical="3dp"
+                android:id="@+id/bookGenresTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Жанры: "/>
+            <TextView
+                android:paddingVertical="3dp"
                 android:id="@+id/bookCountryTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,14 +62,20 @@
                 android:id="@+id/bookRatingTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="5dp"
+                android:paddingVertical="3dp"
                 android:text="Рейтинг: "/>
+            <TextView
+                android:id="@+id/bookStatusTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="3dp"
+                android:text="Статус: "/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical">
                 <TextView
-                    android:paddingVertical="5dp"
+                    android:paddingVertical="3dp"
                     android:paddingRight="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -83,7 +104,7 @@
                     android:layout_height="24dp"
                     android:src="@drawable/ic_eye"/>
                 <TextView
-                    android:padding="5dp"
+                    android:padding="3dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -111,3 +132,4 @@
     </LinearLayout>
 
 </LinearLayout>
+</ScrollView>

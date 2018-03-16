@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.example.hp.recyclerviewgrid.Activities.BookDetailsActivity;
 import com.example.hp.recyclerviewgrid.Entities.Book;
 import com.example.hp.recyclerviewgrid.Fragments.BookDetailsFragment;
+import com.example.hp.recyclerviewgrid.Fragments.ChaptersListFragment;
 import com.example.hp.recyclerviewgrid.Entities.Result;
 
 /**
@@ -17,6 +18,7 @@ import com.example.hp.recyclerviewgrid.Entities.Result;
 public class BookPagerAdapter extends FragmentPagerAdapter {
     Book book;
     Fragment bookDetailsFragment;
+    Fragment bookChaptersList;
     public BookPagerAdapter(FragmentManager fm, Book book) {
         super(fm);
         this.book = book;
@@ -24,23 +26,31 @@ public class BookPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if(position == 0) {
-            bookDetailsFragment = new BookDetailsFragment();
-            Bundle args = new Bundle();
-            args.putParcelable(Book.BOOK_OBJECT, book);
-            bookDetailsFragment.setArguments(args);
+        bookDetailsFragment = new BookDetailsFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(Book.BOOK_OBJECT, book);
+        bookDetailsFragment.setArguments(args);
+        bookChaptersList = new ChaptersListFragment();
+        bookChaptersList.setArguments(args);
+        if(position == 0)
             return bookDetailsFragment;
-        }
-        return null;
+        return bookChaptersList;
     }
 
     @Override
     public int getCount() {
-        return 1;
+        return 2;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "ASDASD";
+        if(position == 0)
+            return "Описание";
+        return "Список глав";
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 }
