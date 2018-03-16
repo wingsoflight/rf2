@@ -7,16 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-
 import com.example.hp.recyclerviewgrid.Adapters.Adapter;
 import com.example.hp.recyclerviewgrid.ApiConnectivity.ApiService;
 import com.example.hp.recyclerviewgrid.ApiConnectivity.RetrofitClient;
 import com.example.hp.recyclerviewgrid.Entities.Response;
 import com.example.hp.recyclerviewgrid.Entities.Result;
-
 import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -28,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private int limit = 10, offset = 0, threshold = 0;
     int visibleItemCount, totalItemCount, pastVisibleItems;
     boolean loading = true;
+    private String orderName = "popular";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +50,14 @@ public class MainActivity extends AppCompatActivity {
                         if(visibleItemCount + pastVisibleItems >= totalItemCount - threshold){
                             loading = false;
                             offset += limit;
-                            getData("popular", limit, offset);
+                            getData(orderName, limit, offset);
                         }
                     }
                 }
             }
         });
         if(checkInternet(getApplicationContext())){
-            getData("popular", limit, offset);
+            getData(orderName, limit, offset);
         }
     }
 

@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import java.io.Serializable;
 
 public class Chapter implements Serializable, Parcelable{
-
+    public static final String CHAPTER_OBJECT = "CHAPTER_OBJECT";
     private static final long serialVersionUID = 160320180213L;
     String title, URL, content;
     protected Chapter(Parcel in) {

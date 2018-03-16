@@ -8,7 +8,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient{
-    private static final String ROOT_URL = "https://ранобэ.рф";
+    private static final String ROOT_URL = "https://xn--80ac9aeh6f.xn--p1ai";
 
     private static Retrofit getRetrofitInstance(Context context){
         int cacheSize = 10 * 1024 * 1024;

@@ -4,21 +4,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
-import com.example.hp.recyclerviewgrid.Activities.BookDetailsActivity;
 import com.example.hp.recyclerviewgrid.Entities.Book;
 import com.example.hp.recyclerviewgrid.Fragments.BookDetailsFragment;
 import com.example.hp.recyclerviewgrid.Fragments.ChaptersListFragment;
-import com.example.hp.recyclerviewgrid.Entities.Result;
 
-/**
- * Created by user on 3/13/18.
- */
 
 public class BookPagerAdapter extends FragmentPagerAdapter {
-    Book book;
-    Fragment bookDetailsFragment;
-    Fragment bookChaptersList;
+    private Book book;
+
     public BookPagerAdapter(FragmentManager fm, Book book) {
         super(fm);
         this.book = book;
@@ -26,11 +19,11 @@ public class BookPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        bookDetailsFragment = new BookDetailsFragment();
+        Fragment bookDetailsFragment = new BookDetailsFragment();
         Bundle args = new Bundle();
         args.putParcelable(Book.BOOK_OBJECT, book);
         bookDetailsFragment.setArguments(args);
-        bookChaptersList = new ChaptersListFragment();
+        Fragment bookChaptersList = new ChaptersListFragment();
         bookChaptersList.setArguments(args);
         if(position == 0)
             return bookDetailsFragment;
