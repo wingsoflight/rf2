@@ -3,6 +3,7 @@ package com.example.hp.recyclerviewgrid.Activities;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.transition.Visibility;
@@ -22,6 +23,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -91,4 +93,5 @@ public class BookDetailsActivity extends FragmentActivity {
             mBookPagerAdapter.notifyDataSetChanged();
         }
     }
+
 }

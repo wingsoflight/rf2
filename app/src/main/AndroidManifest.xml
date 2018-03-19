@@ -24,6 +24,12 @@
                 android:value=".MainActivity">
             </meta-data>
         </activity>
+        <activity android:name=".Activities.BookReaderActivity" android:parentActivityName=".Activities.BookDetailsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activities.BookDetailsActivity">
+            </meta-data>
+        </activity>
     </application>
 
 </manifest>

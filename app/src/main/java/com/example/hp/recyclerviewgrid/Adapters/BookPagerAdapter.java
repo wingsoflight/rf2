@@ -1,9 +1,12 @@
 package com.example.hp.recyclerviewgrid.Adapters;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
+
 import com.example.hp.recyclerviewgrid.Entities.Book;
 import com.example.hp.recyclerviewgrid.Fragments.BookDetailsFragment;
 import com.example.hp.recyclerviewgrid.Fragments.ChaptersListFragment;
@@ -46,4 +49,6 @@ public class BookPagerAdapter extends FragmentPagerAdapter {
     public int getItemPosition(Object object) {
         return POSITION_NONE;
     }
+
+
 }

@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class ChaptersListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.book_chapters_list, container, false);
         recyclerView = rootView.findViewById(R.id.bookChaptersRecyclerView);
         chapters = new ArrayList<>();
@@ -41,7 +43,7 @@ public class ChaptersListFragment extends Fragment {
         book = getArguments().getParcelable(Book.BOOK_OBJECT);
         recyclerViewLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(recyclerViewLayoutManager);
-        recyclerViewAdapter = new BookChaptersRecyclerViewAdapter(chapters);
+        recyclerViewAdapter = new BookChaptersRecyclerViewAdapter(chapters, getContext());
         recyclerView.setAdapter(recyclerViewAdapter);
         return rootView;
     }

@@ -67,4 +67,5 @@ public class Chapter implements Serializable, Parcelable{
         parcel.writeString(URL);
         parcel.writeString(content);
     }
+
 }

@@ -25,6 +25,7 @@ public class BookDetailsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.book_detail, container, false);
         Bundle args = getArguments();
         Book book = args.getParcelable(Book.BOOK_OBJECT);
