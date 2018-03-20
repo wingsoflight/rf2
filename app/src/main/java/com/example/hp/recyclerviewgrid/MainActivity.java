@@ -3,6 +3,7 @@ package com.example.hp.recyclerviewgrid;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +13,12 @@ import com.example.hp.recyclerviewgrid.ApiConnectivity.ApiService;
 import com.example.hp.recyclerviewgrid.ApiConnectivity.RetrofitClient;
 import com.example.hp.recyclerviewgrid.Entities.Response;
 import com.example.hp.recyclerviewgrid.Entities.Result;
+import com.livefront.bridge.Bridge;
+import com.livefront.bridge.SavedStateHandler;
+
 import java.util.ArrayList;
+
+import icepick.Icepick;
 import retrofit2.Call;
 import retrofit2.Callback;
 

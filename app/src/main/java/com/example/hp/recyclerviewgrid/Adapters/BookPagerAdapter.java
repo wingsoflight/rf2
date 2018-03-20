@@ -49,6 +49,4 @@ public class BookPagerAdapter extends FragmentPagerAdapter {
     public int getItemPosition(Object object) {
         return POSITION_NONE;
     }
-
-
 }

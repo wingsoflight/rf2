@@ -19,16 +19,13 @@ import com.example.hp.recyclerviewgrid.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by HP on 16.03.2018.
- */
-
 public class ChaptersListFragment extends Fragment {
     RecyclerView recyclerView;
     LinearLayoutManager recyclerViewLayoutManager;
     Book book;
     RecyclerView.Adapter recyclerViewAdapter;
     ArrayList<Chapter> chapters;
+    private final static String LTAG = "ChaptersListFragment";
 
     @Nullable
     @Override

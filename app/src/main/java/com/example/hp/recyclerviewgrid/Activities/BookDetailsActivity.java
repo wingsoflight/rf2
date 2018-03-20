@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.transition.Visibility;
@@ -16,6 +18,8 @@ import com.example.hp.recyclerviewgrid.Entities.Book;
 import com.example.hp.recyclerviewgrid.Entities.Chapter;
 import com.example.hp.recyclerviewgrid.Entities.Result;
 import com.example.hp.recyclerviewgrid.R;
+import com.livefront.bridge.Bridge;
+import com.livefront.bridge.SavedStateHandler;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -26,9 +30,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-/**
- * Created by user on 3/13/18.
- */
+import icepick.Icepick;
 
 public class BookDetailsActivity extends FragmentActivity {
     public final static String RESULT_OBJECT = "Result object";
@@ -39,6 +41,7 @@ public class BookDetailsActivity extends FragmentActivity {
     Intent intent;
     Result result;
     Book book;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,4 +97,8 @@ public class BookDetailsActivity extends FragmentActivity {
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(new Bundle());
+    }
 }

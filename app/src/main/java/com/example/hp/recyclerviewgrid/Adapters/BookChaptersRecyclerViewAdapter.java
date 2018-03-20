@@ -66,5 +66,4 @@ public class BookChaptersRecyclerViewAdapter extends RecyclerView.Adapter<BookCh
         }
     }
 
-
 }

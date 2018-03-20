@@ -18,13 +18,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.BookDetailsActivity" android:parentActivityName=".MainActivity">
+        <activity android:name=".Activities.BookDetailsActivity"
+            android:parentActivityName=".MainActivity"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity">
             </meta-data>
         </activity>
-        <activity android:name=".Activities.BookReaderActivity" android:parentActivityName=".Activities.BookDetailsActivity">
+        <activity android:name=".Activities.BookReaderActivity"
+            android:parentActivityName=".Activities.BookDetailsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Activities.BookDetailsActivity">
