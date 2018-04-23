@@ -1,8 +1,7 @@
 package com.example.hp.recyclerviewgrid.ApiConnectivity;
 
-import android.content.Context;
+import java.util.concurrent.TimeUnit;
 
-import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -10,14 +9,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient{
     private static final String ROOT_URL = "https://xn--80ac9aeh6f.xn--p1ai";
 
-    private static Retrofit getRetrofitInstance(Context context){
-        int cacheSize = 10 * 1024 * 1024;
-        Cache cache = new Cache(context.getCacheDir(), cacheSize);
-        OkHttpClient okHttpClient = new OkHttpClient.Builder().cache(cache).build();
+    private static Retrofit getRetrofitInstance(){
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().connectTimeout(15, TimeUnit.SECONDS).readTimeout(15, TimeUnit.SECONDS).build();
         return new Retrofit.Builder().baseUrl(ROOT_URL).client(okHttpClient).addConverterFactory(GsonConverterFactory.create()).build();
     }
 
-    public static ApiService getApiService(Context context){
-        return getRetrofitInstance(context).create(ApiService.class);
+    public static ApiService getApiService(){
+        return getRetrofitInstance().create(ApiService.class);
     }
 }

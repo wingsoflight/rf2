@@ -8,60 +8,44 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
+
 import com.example.hp.recyclerviewgrid.Adapters.Adapter;
 import com.example.hp.recyclerviewgrid.ApiConnectivity.ApiService;
 import com.example.hp.recyclerviewgrid.ApiConnectivity.RetrofitClient;
 import com.example.hp.recyclerviewgrid.Entities.Response;
 import com.example.hp.recyclerviewgrid.Entities.Result;
-import com.livefront.bridge.Bridge;
-import com.livefront.bridge.SavedStateHandler;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import icepick.Icepick;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 
 public class MainActivity extends AppCompatActivity {
+    HashMap<String, Integer> genres;
     private ArrayList<Result> resultList;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter recyclerViewAdapter;
     private LinearLayoutManager recyclerViewLayoutManager;
-    private int limit = 10, offset = 0, threshold = 0;
+    private ProgressBar progressBar;
+    private int limit = 15, offset = 0, threshold = 3;
     int visibleItemCount, totalItemCount, pastVisibleItems;
-    boolean loading = true;
+    boolean loading = false;
     private String orderName = "popular";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        System.out.println(getCacheDir().toString());
-        resultList = new ArrayList<>();
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerViewLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(recyclerViewLayoutManager);
-        recyclerViewAdapter = new Adapter(resultList, getApplicationContext());
-        recyclerView.setAdapter(recyclerViewAdapter);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if(dy > 0){
-                    visibleItemCount = recyclerViewLayoutManager.getChildCount();
-                    totalItemCount = recyclerViewLayoutManager.getItemCount();
-                    pastVisibleItems = recyclerViewLayoutManager.findFirstVisibleItemPosition();
-                    if(loading){
-                        if(visibleItemCount + pastVisibleItems >= totalItemCount - threshold){
-                            loading = false;
-                            offset += limit;
-                            getData(orderName, limit, offset);
-                        }
-                    }
-                }
-            }
-        });
+        init();
         if(checkInternet(getApplicationContext())){
             getData(orderName, limit, offset);
         }
@@ -71,26 +55,67 @@ public class MainActivity extends AppCompatActivity {
         return ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null;
     }
 
-    void getData(String orderName, final int limit, int offset){
-        ApiService apiService = RetrofitClient.getApiService(this);
+    void getData(String orderName, final int limit, final int offset){
+        ApiService apiService = RetrofitClient.getApiService();
         Call<Response> responseCall = apiService.getData(orderName, limit, offset);
         responseCall.enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                resultList.addAll(response.body().getResult());
-                if(resultList.size() <= limit) {
-                    recyclerView.setAdapter(recyclerViewAdapter);
-                }
-                else{
-                    recyclerViewAdapter.notifyDataSetChanged();
-                }
-                loading = true;
+                onLoad(response);
             }
 
             @Override
             public void onFailure(Call<Response> call, Throwable t) {
-                System.out.println(t.toString());
+                onError(t);
             }
         });
     }
+
+
+    void init(){
+        resultList = new ArrayList<>();
+        genres = new HashMap<>();
+        recyclerView = findViewById(R.id.recyclerView);
+        progressBar = findViewById(R.id.mainListProgressBar);
+        recyclerView.setHasFixedSize(true);
+        recyclerViewLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(recyclerViewLayoutManager);
+        recyclerViewAdapter = new Adapter(resultList, getApplicationContext());
+        recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerView.addOnScrollListener(onScrollListener);
+    }
+
+    void onLoad(retrofit2.Response<Response> response){
+        resultList.addAll(response.body().getResult());
+        if(resultList.size() <= limit) {
+            recyclerView.setAdapter(recyclerViewAdapter);
+        }
+        else{
+            recyclerViewAdapter.notifyDataSetChanged();
+        }
+    }
+
+    void onError(Throwable t){
+        t.printStackTrace();
+
+    }
+
+    private RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            if(dy > 0){
+                visibleItemCount = recyclerViewLayoutManager.getChildCount();
+                totalItemCount = recyclerViewLayoutManager.getItemCount();
+                pastVisibleItems = recyclerViewLayoutManager.findFirstVisibleItemPosition();
+                if(!loading){
+                    if(visibleItemCount + pastVisibleItems >= totalItemCount - threshold){
+                        loading = true;
+                        offset += limit;
+                        getData(orderName, limit, offset);
+                    }
+                }
+            }
+        }
+    };
 }

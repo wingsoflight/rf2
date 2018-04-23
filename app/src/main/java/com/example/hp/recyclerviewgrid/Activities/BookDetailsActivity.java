@@ -1,41 +1,34 @@
 package com.example.hp.recyclerviewgrid.Activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.transition.Visibility;
-import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import com.example.hp.recyclerviewgrid.Adapters.BookPagerAdapter;
 import com.example.hp.recyclerviewgrid.Entities.Book;
 import com.example.hp.recyclerviewgrid.Entities.Chapter;
 import com.example.hp.recyclerviewgrid.Entities.Result;
 import com.example.hp.recyclerviewgrid.R;
-import com.livefront.bridge.Bridge;
-import com.livefront.bridge.SavedStateHandler;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
-import icepick.Icepick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class BookDetailsActivity extends FragmentActivity {
     public final static String RESULT_OBJECT = "Result object";
     private final static String TAG = "BOOK_DETAILS_ACTIVITY";
-    ProgressBar bookPagerProgressBar;
     ViewPager mViewPager;
     BookPagerAdapter mBookPagerAdapter;
     Intent intent;
@@ -46,24 +39,25 @@ public class BookDetailsActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.book_pager);
-        bookPagerProgressBar = findViewById(R.id.bookPagerProgressBar);
         mViewPager = findViewById(R.id.aboutBookPager);
         intent = getIntent();
         result = intent.getParcelableExtra(RESULT_OBJECT);
         book = new Book(result.getTitle(), result.getDescription(), result.getLikes(), result.getDislikes(), result.getView(), result.getImage().getDesktop().getImage());
-        new getBookInfo().execute();
         mBookPagerAdapter = new BookPagerAdapter(getSupportFragmentManager(), book);
         mViewPager.setAdapter(mBookPagerAdapter);
-        bookPagerProgressBar.setVisibility(View.GONE);
         mViewPager.setVisibility(View.VISIBLE);
-    }
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request request = new Request.Builder().url(result.getUrl()).build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
+            }
 
-    class getBookInfo extends AsyncTask<Void, Void, Void>{
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            try{
-                Document doc = Jsoup.connect(result.getUrl()).get();
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                String responseBody = response.body().string();
+                Document doc = Jsoup.parse(responseBody);
                 String country = doc.selectFirst("div.book__block-item.country-block > div > a").text();
                 String author = doc.selectFirst("div.book__block-name").text();
                 String rating = doc.selectFirst("div.rating-text").text();
@@ -84,17 +78,14 @@ public class BookDetailsActivity extends FragmentActivity {
                 book.setGenres(genres);
                 book.setAuthor(author);
                 book.setChapters(chapters);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mBookPagerAdapter.notifyDataSetChanged();
+                    }
+                });
             }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void s) {
-            mBookPagerAdapter.notifyDataSetChanged();
-        }
+        });
     }
 
     @Override
